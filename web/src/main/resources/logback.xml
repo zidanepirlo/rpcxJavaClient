@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<configuration>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                <!--[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n-->
+                [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%level] %logger:%L - x:\(%X\)%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Prudent>true</Prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/Users/yuan/log/rpcxJavaClient/rpcxJavaClient.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!-- keep 60 days worth of history -->
+            <MaxHistory>60</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%level] %logger:%L - x:\(%X\)%msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!--&lt;!&ndash; 日志级别 &ndash;&gt;-->
+    <!--<root>-->
+        <!--&lt;!&ndash; 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 &ndash;&gt;-->
+        <!--<level value="error" />-->
+        <!--<level value="debug" />-->
+        <!--<level value="warn" />-->
+        <!--<level value="info" />-->
+        <!--<appender-ref ref="file" />-->
+        <!--<appender-ref ref="console" />-->
+    <!--</root>-->
+
+    <logger name="com.yuan.rpcx" additivity="true">
+        <level value="info" />
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="org.springframework" additivity="true">
+        <level value="info" />
+        <appender-ref ref="file" />
+        <appender-ref ref="console" />
+    </logger>
+
+
+
+</configuration>

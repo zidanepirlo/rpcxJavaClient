@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="zkApiCli" class="com.yuan.rpcx.ZkApiCli">
+        <property name="zookeeperIP" value="127.0.0.1:2181"></property>
+        <property name="sessionTimeOut" value="5000"></property>
+        <property name="watchers" >
+            <list>
+                <ref bean="createSessionSync"></ref>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="createSessionSync" class="com.yuan.rpcx.RpcWatch.RpcxSyncWatch">
+        <property name="appName" value="rpcx_test"></property>
+    </bean>
+
+    <bean id="simpleRpcxCall" class="com.yuan.rpcx.Call.SimpleRpcxCall">
+        <property name="appName" value="rpcx_test"></property>
+        <!--<property name="servicesName" value="StudentSrv"></property>-->
+        <property name="servicesName">
+            <list>
+                <value>StudentSrv</value>
+            </list>
+        </property>
+    </bean>
+
+
+
+</beans>
